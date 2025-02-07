@@ -1,0 +1,157 @@
+<button class="btn-primary" routerLink="/"> ← </button>
+
+
+<h4>Neuer Bericht (für {{ reportForm.get("project_id")?.value }})</h4>
+@for (project of projects; track $index) {
+    @if (project.id == reportForm.get("project_id")?.value) {
+        @for (report of project.lastReport; track $index) {
+            @if (!report) {
+                Erster Bericht → KW {{ currentWeekNumber }}
+            }@else {
+                KW {{ report.kw }} → KW {{ currentWeekNumber }}
+            }
+        }
+    }
+}
+
+<div class="container">
+    <form [formGroup]="reportForm" (ngSubmit)="handle_submit()">
+        <label for="projects">Projektauswahl: </label>
+            @if (projects.length == 0) {
+                <span style="color: red;">Keine Projekte. Um einen Bericht zu schreiben, erstellen sie ein Projekt</span>
+            }@else if(projects.length != 0) {
+                <select id="projects" formControlName="project_id">
+                    @for(project of projects ;track $index) {
+                        <option [value]="project.id" >{{ project.name }}</option>
+                    }
+                </select>
+            }
+            <hr>
+
+        <div>
+            <b>Budget:</b>  
+            <input type="radio" formControlName="budget_light" value="1">Gut
+            <input type="radio" formControlName="budget_light" value="2">Okay
+            <input type="radio" formControlName="budget_light" value="3">Schlecht
+            <hr>
+            <p>Jetzt:</p>
+            @if (reportForm.get("budget_light")?.value == "1") {<p id="circle-green"></p>
+            }@else if (reportForm.get("budget_light")?.value == "2"){<p id="circle-yellow"></p>
+            }@else if (reportForm.get("budget_light")?.value == "3") {<p id="circle-red"></p>
+            }@else {<p id="circle-gray"></p>}
+
+            @for (project of projects; track $index) {
+                @if (project.id == reportForm.get("project_id")?.value) {
+                    @for (report of project.lastReport; track $index) {
+                        @if (report) {
+                            <p>In KW {{report.kw}} (Letzter Bericht):</p>
+                            @if (report.budget_light == "1") {<p id="circle-green"></p>
+                            }@else if (report.budget_light == "2"){<p id="circle-yellow"></p>
+                            }@else if (report.budget_light == "3") {<p id="circle-red"></p>
+                            }@else {<p id="circle-gray"></p>}
+                            <textarea rows="5" cols="30" pTextarea [placeholder]="report.budget" formControlName="budget"></textarea>
+                        }@else if (!report){
+                            <textarea rows="5" cols="30" pTextarea placeholder="Erzähle mehr" formControlName="budget"></textarea>
+                        }
+                    }
+                }
+            }
+        </div>
+
+        <div>
+            <hr>
+            <b>Zeit:</b>  
+            <input type="radio" formControlName="time_light" value="1">Gut
+            <input type="radio" formControlName="time_light" value="2">Okay
+            <input type="radio" formControlName="time_light" value="3">Schlecht
+            <hr>
+            <p>Jetzt:</p>
+            @if (reportForm.get("time_light")?.value == "1") {<p id="circle-green"></p>
+            }@else if (reportForm.get("time_light")?.value == "2"){<p id="circle-yellow"></p>
+            }@else if (reportForm.get("time_light")?.value == "3") {<p id="circle-red"></p>
+            }@else {<p id="circle-gray"></p>}
+
+            @for (project of projects; track $index) {
+                @if (project.id == reportForm.get("project_id")?.value) {
+                    @for (report of project.lastReport; track $index) {
+                        @if (report) {
+                            <p>In KW {{report.kw}} (Letzter Bericht):</p>
+                            @if (report.time_light == "1") {<p id="circle-green"></p>
+                            }@else if (report.time_light == "2"){<p id="circle-yellow"></p>
+                            }@else if (report.time_light == "3") {<p id="circle-red"></p>
+                            }@else {<p id="circle-gray"></p>}
+                            <textarea rows="5" cols="30" pTextarea [placeholder]="report.time" formControlName="time"></textarea>
+                        }@else if (!report){
+                            <textarea rows="5" cols="30" pTextarea placeholder="Erzähle mehr" formControlName="time"></textarea>
+                        }
+                    }
+                }
+            }
+        </div>
+
+        <div>
+            <hr>
+            <b>Qualität:</b>  
+            <input type="radio" formControlName="quality_light" value="1">Gut
+            <input type="radio" formControlName="quality_light" value="2">Okay
+            <input type="radio" formControlName="quality_light" value="3">Schlecht
+            <hr>
+            <p>Jetzt:</p>
+            @if (reportForm.get("quality_light")?.value == "1") {<p id="circle-green"></p>
+            }@else if (reportForm.get("quality_light")?.value == "2"){<p id="circle-yellow"></p>
+            }@else if (reportForm.get("quality_light")?.value == "3") {<p id="circle-red"></p>
+            }@else {<p id="circle-gray"></p>}
+            
+            @for (project of projects; track $index) {
+                @if (project.id == reportForm.get("project_id")?.value) {
+                    @for (report of project.lastReport; track $index) {
+                        @if (report) {
+                            <p>In KW {{report.kw}} (Letzter Bericht):</p>
+                            @if (report.quality_light == "1") {<p id="circle-green"></p>
+                            }@else if (report.quality_light == "2"){<p id="circle-yellow"></p>
+                            }@else if (report.quality_light == "3") {<p id="circle-red"></p>
+                            }@else {<p id="circle-gray"></p>}
+                            <textarea rows="5" cols="30" pTextarea [placeholder]="report.quality" formControlName="quality"></textarea>
+                        }@else if (!report){
+                            <textarea rows="5" cols="30" pTextarea placeholder="Erzähle mehr" formControlName="quality"></textarea>
+                        }
+                    }
+                }
+            }
+        </div>
+
+        <div>
+            <hr>
+            <b>Kunde:</b>  
+            <input type="radio" formControlName="customer_light" value="1">Gut
+            <input type="radio" formControlName="customer_light" value="2">Okay
+            <input type="radio" formControlName="customer_light" value="3">Schlecht
+            <hr>
+            <p>Jetzt:</p>
+            @if (reportForm.get("customer_light")?.value == "1") {<p id="circle-green"></p>
+            }@else if (reportForm.get("customer_light")?.value == "2"){<p id="circle-yellow"></p>
+            }@else if (reportForm.get("customer_light")?.value == "3") {<p id="circle-red"></p>
+            }@else {<p id="circle-gray"></p>}
+
+            @for (project of projects; track $index) {
+                @if (project.id == reportForm.get("project_id")?.value) {
+                    @for (report of project.lastReport; track $index) {
+                        @if (report) {
+                            <p>In KW {{report.kw}} (Letzter Bericht):</p>
+                            @if (report.customer_light == "1") {<p id="circle-green"></p>
+                            }@else if (report.customer_light == "2"){<p id="circle-yellow"></p>
+                            }@else if (report.customer_light == "3") {<p id="circle-red"></p>
+                            }@else {<p id="circle-gray"></p>}
+                            <textarea rows="5" cols="30" pTextarea [placeholder]="report.customer" formControlName="customer"></textarea>
+                        }@else if (!report){
+                            <textarea rows="5" cols="30" pTextarea placeholder="Erzähle mehr" formControlName="customer"></textarea>
+                        }
+                    }
+                }
+            }
+        </div>
+        <button type="submit" [disabled]="!reportForm.valid">Bericht abgeben</button>
+    </form>
+</div>
+
+

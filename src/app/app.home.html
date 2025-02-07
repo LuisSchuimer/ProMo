@@ -1,0 +1,155 @@
+@if (!showReports) {
+    <form [formGroup]="newProjectForm" (ngSubmit)="handle_submit()">
+        <input type="text" placeholder="Name" formControlName="name">
+        <button class="btn-primary" type="submit" [disabled]="!newProjectForm.valid">Neues Projekt</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th><b>Projekt</b></th>
+                <th>Letzter Bericht</th>
+                <th>Erstelldatum</th>
+                <th>Akt. Budget</th>
+                <th>Akt. Zeit</th>
+                <th>Akt. Qualität</th>
+                <th>Akt. Kunde</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (project of data; track $index) {
+                <tr>
+                    <td>{{ project.name }}</td>
+                    @for (report of project.lastReport; track $index) {
+                        <td>
+                            @if (!report) {
+                                N/A
+                            }@else {
+                                {{ report.name }}
+
+                            }
+                        </td>
+                        @if (!report) {
+                            <td>N/A</td>
+                        }@else {
+                            <td>{{ report.date }}</td>
+                        }
+                        @if (!report) {
+                            <td><div id="circle-gray"></div></td>
+                            <td><div id="circle-gray"></div></td>
+                            <td><div id="circle-gray"></div></td>
+                            <td><div id="circle-gray"></div></td>
+                        }@else {
+                            <td>@if (report.budget_light == 1) {
+                                <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.budget }}</span></div>
+                            }@else if (report.budget_light == 2) {
+                                <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.budget }}</span></div>
+                            }@else if(report.budget_light == 3) {
+                                <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.budget }}</span></div>
+                            }@else {<div id="circle-gray"></div>}</td>
+
+                            <td>@if (report.time_light == 1) {
+                                <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.time }}</span></div>
+                            }@else if (report.time_light == 2) {
+                                <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.time }}</span></div>
+                            }@else if(report.time_light == 3) {
+                                <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.time }}</span></div>
+                            }@else {<div id="circle-gray"></div>}</td>
+
+                            <td>@if (report.quality_light == 1) {
+                                <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.quality }}</span></div>
+                            }@else if (report.quality_light == 2) {
+                                <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.quality }}</span></div>
+                            }@else if(report.quality_light == 3) {
+                                <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.quality }}</span></div>
+                            }@else {<div id="circle-gray"></div>}</td>
+
+                            <td>@if (report.customer_light == 1) {
+                                <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.customer }}</span></div>
+                            }@else if (report.customer_light == 2) {
+                                <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.customer }}</span></div>
+                            }@else if(report.customer_light == 3) {
+                                <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.customer }}</span></div>
+                            }@else {<div id="circle-gray"></div>}</td>
+                        }
+        
+                    }
+                    <td>
+                        <button class="btn-table" (click)="showReportsOfProject(project.id)">👀</button>
+                        <button class="btn-table" routerLink="/report"> + </button>
+                        <button class="btn-red" (click) = "deleteProject(project.id)"> 🗑️ </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}@else {
+    <button class="btn-primary" (click)="reload()">  ←  </button>
+    <h4>Berichte für <b>"{{ projectName }}"</b></h4>
+    <table>
+        <thead>
+            <tr>
+                <th><b>Projekt</b></th>
+                <th>Bericht</th>
+                <th>Erstelldatum</th>
+                <th>Budget</th>
+                <th>Zeit</th>
+                <th>Qualität</th>
+                <th>Kunde</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (report of data; track $index) {
+                <tr>
+                    <td>{{ report.project_name }}</td>
+                    @if (!report.isLastReport) {
+                        <td>KW {{ report.kw }}</td>
+                    }@else {
+                        <td>KW {{ report.kw }} (Letzter Bericht)</td>
+                    }
+                    @if (report.date) {
+                        <td>{{ report.date }}</td>
+                    }@else {
+                        <td>N/A</td>
+                    }
+
+                    <td>@if (report.budget_light == 1) {
+                        <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.budget }}</span></div>
+                    }@else if (report.budget_light == 2) {
+                        <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.budget }}</span></div>
+                    }@else if(report.budget_light == 3) {
+                        <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.budget }}</span></div>
+                    }@else {<div id="circle-gray"></div>}</td>
+
+                    <td>@if (report.time_light == 1) {
+                        <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.time }}</span></div>
+                    }@else if (report.time_light == 2) {
+                        <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.time }}</span></div>
+                    }@else if(report.time_light == 3) {
+                        <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.time }}</span></div>
+                    }@else {<div id="circle-gray"></div>}</td>
+
+                    <td>@if (report.quality_light == 1) {
+                        <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.quality }}</span></div>
+                    }@else if (report.quality_light == 2) {
+                        <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.quality }}</span></div>
+                    }@else if(report.quality_light == 3) {
+                        <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.quality }}</span></div>
+                    }@else {<div id="circle-gray"></div>}</td>
+
+                    <td>@if (report.customer_light == 1) {
+                        <div id="circle-green" class="tooltip"><span class="tooltiptext">{{ report.customer }}</span></div>
+                    }@else if (report.customer_light == 2) {
+                        <div id="circle-yellow" class="tooltip"><span class="tooltiptext">{{ report.customer }}</span></div>
+                    }@else if(report.customer_light == 3) {
+                        <div id="circle-red" class="tooltip"><span class="tooltiptext">{{ report.customer }}</span></div>
+                    }@else {<div id="circle-gray"></div>}</td>
+
+                    <td><button class="btn-red" (click) = "deleteReport(report.id)"> 🗑️ </button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

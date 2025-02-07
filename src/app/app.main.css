@@ -1,0 +1,155 @@
+table {
+    font-family: arial, sans-serif;
+    font-size: 12px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+h2, h3, h4 {
+    font-family: arial, sans-serif;
+}
+
+td, th {
+    border: 1px solid #6e6e6e;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dfdfdf;
+}
+
+#circle-red, #circle-green, #circle-yellow, #circle-gray {
+    width: 25px;
+    height: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+}
+
+#circle-red {
+    background: red;
+}
+
+#circle-green {
+    background: green;
+}
+
+#circle-yellow {
+    background: yellow;
+}
+
+#circle-gray {
+    background: gray;
+}
+
+.btn-primary {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2), 0 2px 5px 0 rgba(0,0,0,0.19);
+    border-radius: 8px;
+    background-color: #525554;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    display: inline-block;
+    margin: 10px 2px;
+    cursor: pointer;
+}
+
+.btn-table {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2), 0 2px 5px 0 rgba(0,0,0,0.19);
+    border-radius: 8px;
+    background-color: #525554;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+    display: inline-block;
+    margin: 1px 2px;
+    cursor: pointer;
+}
+
+.btn-red {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2), 0 2px 5px 0 rgba(0,0,0,0.19);
+    border-radius: 8px;
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.container {
+    display: grid;
+    margin: 10px 10px;
+    grid-template-columns: auto auto;
+    background-color: rgb(196, 196, 196);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+textarea {
+    width: 90%;
+    height: 150px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+body {
+    text-align: center;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    padding: 5px 10px;
+    background-color: rgb(80, 80, 80);
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    white-space: normal;  /* Allow text wrapping */
+    word-wrap: break-word; /* Break long words if necessary */
+    width: 25vw; /* Set max width to 50% of the viewport width (or any other value you prefer) */
+    max-height: 80vh; /* Limit the max height to 80% of the viewport height */
+    overflow-y: auto; /* Allow scrolling if the content exceeds the max height */
+    font-family: arial, sans-serif;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 100%;
+    transform: translateX(-50%); /* Adjust the horizontal position */
+    transition-property: visibility;
+    transition-delay: 0s;
+}
+
+/* When hovering, position the tooltip above if there is no space below */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
